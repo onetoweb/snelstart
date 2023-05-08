@@ -2,8 +2,12 @@
 
 ## [1.0.0] - 2023-03-30
 
-Initial release
+ - Initial release
 
-## [1.0.1] - 2023-03-30
+## [1.0.1] - 2023-05-08
 
  - Article endpoint list function change amount parameter order and it is now optional
+
+## [1.0.2] - 2023-05-08
+
+ - Changed invoice endpoint to quotation endpoint

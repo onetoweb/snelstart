@@ -1,42 +1,42 @@
 .. _top:
-.. title:: Invoices
+.. title:: Quotations
 
 `Back to index <index.rst>`_
 
-========
-Invoices
-========
+==========
+quotations
+==========
 
 .. contents::
     :local:
 
 
-List invoices
-`````````````
+List quotations
+```````````````
 
 .. code-block:: php
     
     $skip = 0;
     $top = 50;
     $filter = null;
-    $result = $client->invoice->list($skip, $top, $filter);
+    $result = $client->quotation->list($skip, $top, $filter);
 
 
-Get invoice
-```````````
+Get quotation
+`````````````
 
 .. code-block:: php
     
     $id = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
-    $result = $client->invoice->get($id);
+    $result = $client->quotation->get($id);
 
 
-Create invoice
-``````````````
+Create quotation
+````````````````
 
 .. code-block:: php
     
-    $result = $client->invoice->create([
+    $result = $client->quotation->create([
         'relatie' => [
             'id' => '00000000-0000-0000-0000-000000000000',
             'uri' => 'string'
@@ -112,13 +112,13 @@ Create invoice
     ]);
 
 
-Update invoice
-``````````````
+Update quotation
+````````````````
 
 .. code-block:: php
     
     $id = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
-    $result = $client->invoice->update($id, [
+    $result = $client->quotation->update($id, [
         'relatie' => [
             'id' => '00000000-0000-0000-0000-000000000000',
             'uri' => 'string'
@@ -194,13 +194,13 @@ Update invoice
     ]);
 
 
-Delete invoice
-``````````````
+Delete quotation
+````````````````
 
 .. code-block:: php
     
     $id = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
-    $result = $client->invoice->delete($id);
+    $result = $client->quotation->delete($id);
 
 
 `Back to top <#top>`_

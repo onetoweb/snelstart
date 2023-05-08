@@ -63,7 +63,7 @@ Examples
 * `Cost centers <cost_centre.rst>`_
 * `Countries <country.rst>`_
 * `Journal entries <journal_entry.rst>`_
-* `Invoices <invoice.rst>`_
+* `Quotations <quotation.rst>`_
 * `Price agreements <price_agreement.rst>`_
 * `Report <report.rst>`_
 * `Relations <relation.rst>`_

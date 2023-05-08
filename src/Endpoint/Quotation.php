@@ -3,9 +3,9 @@
 namespace Onetoweb\Snelstart\Endpoint;
 
 /**
- * Invoice Endpoint.
+ * Quotation Endpoint.
  */
-class Invoice extends AbstractEndpoint
+class Quotation extends AbstractEndpoint
 {
     /**
      * @param int $skip = 0

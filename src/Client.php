@@ -103,7 +103,7 @@ class Client
         $this->costCentre = new Endpoint\CostCentre($this);
         $this->country = new Endpoint\Country($this);
         $this->journalEntry = new Endpoint\JournalEntry($this);
-        $this->invoice = new Endpoint\Invoice($this);
+        $this->quotation = new Endpoint\Quotation($this);
         $this->priceAgreement = new Endpoint\PriceAgreement($this);
         $this->report = new Endpoint\Report($this);
         $this->relation = new Endpoint\Relation($this);
