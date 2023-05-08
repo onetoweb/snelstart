@@ -9,18 +9,18 @@ class Article extends AbstractEndpoint
 {
     /**
      * @param string $relationId
-     * @param int $ammount
+     * @param int $amount
      * @param int $skip = 0
      * @param int $top = 50
      * @param string $filter = null
      * 
      * @return array
      */
-    public function list(string $relationId, int $ammount, int $skip = 0, int $top = 50, string $filter = null): array
+    public function list(string $relationId, int $amount, int $skip = 0, int $top = 50, string $filter = null): array
     {
         return $this->client->get('artikelen', [
             '$relatieId' => $relationId,
-            '$aantal' => $ammount,
+            '$aantal' => $amount,
             '$skip' => $skip,
             '$top' => $top,
             '$filter' => $filter
