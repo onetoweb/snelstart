@@ -4,7 +4,7 @@
 `Back to index <index.rst>`_
 
 ==========
-quotations
+Quotations
 ==========
 
 .. contents::
