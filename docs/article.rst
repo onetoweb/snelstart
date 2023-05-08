@@ -17,11 +17,11 @@ List articles
 .. code-block:: php
     
     $relationId = '';
-    $amount = 10;
     $skip = 0;
     $top = 50;
     $filter = null;
-    $result = $client->article->list($relationId, $amount, $skip, $top, $filter);
+    $amount = null;
+    $result = $client->article->list($relationId, $skip, $top, $filter, $amount);
 
 
 Get article
