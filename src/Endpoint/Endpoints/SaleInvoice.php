@@ -1,22 +1,24 @@
 <?php
 
-namespace Onetoweb\Snelstart\Endpoint;
+namespace Onetoweb\Snelstart\Endpoint\Endpoints;
+
+use Onetoweb\Snelstart\Endpoint\AbstractEndpoint;
 
 /**
- * VatDeclaration Endpoint.
+ * SaleInvoice Endpoint.
  */
-class VatDeclaration extends AbstractEndpoint
+class SaleInvoice extends AbstractEndpoint
 {
     /**
      * @param int $skip = 0
      * @param int $top = 50
      * @param string $filter = null
-     *
+     * 
      * @return array
      */
     public function list(int $skip = 0, int $top = 50, string $filter = null): array
     {
-        return $this->client->get('btwaangiftes', [
+        return $this->client->get('verkoopfacturen', [
             '$skip' => $skip,
             '$top' => $top,
             '$filter' => $filter
@@ -30,19 +32,16 @@ class VatDeclaration extends AbstractEndpoint
      */
     public function get(string $id): array
     {
-        return $this->client->get("btwaangiftes/$id");
+        return $this->client->get("verkoopfacturen/$id");
     }
     
     /**
      * @param string $id
-     * @param bool $isExternal = true
-     * 
+     *
      * @return array
      */
-    public function updateExternal(string $id, bool $isExternal = true): array
+    public function ubl(string $id): array
     {
-        return $this->client->put("btwaangiftes/$id/externAangeven", [
-            'isExternAangegeven' => $isExternal
-        ]);
+        return $this->client->get("verkoopfacturen/$id/ubl");
     }
 }

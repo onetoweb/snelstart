@@ -1,22 +1,24 @@
 <?php
 
-namespace Onetoweb\Snelstart\Endpoint;
+namespace Onetoweb\Snelstart\Endpoint\Endpoints;
+
+use Onetoweb\Snelstart\Endpoint\AbstractEndpoint;
 
 /**
- * GeneralLedger Endpoint.
+ * VatRateIntl Endpoint.
  */
-class GeneralLedger extends AbstractEndpoint
+class VatRateIntl extends AbstractEndpoint
 {
     /**
      * @param int $skip = 0
      * @param int $top = 50
      * @param string $filter = null
-     *
+     * 
      * @return array
      */
     public function list(int $skip = 0, int $top = 50, string $filter = null): array
     {
-        return $this->client->get('grootboeken', [
+        return $this->client->get('vatrates', [
             '$skip' => $skip,
             '$top' => $top,
             '$filter' => $filter
@@ -30,16 +32,6 @@ class GeneralLedger extends AbstractEndpoint
      */
     public function get(string $id): array
     {
-        return $this->client->get("grootboeken/$id");
-    }
-    
-    /**
-     * @param array $data
-     * 
-     * @return array
-     */
-    public function create(array $data): array
-    {
-        return $this->client->post('grootboeken', $data);
+        return $this->client->get("vatrates/$id");
     }
 }

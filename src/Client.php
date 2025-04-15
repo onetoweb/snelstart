@@ -4,13 +4,14 @@ namespace Onetoweb\Snelstart;
 
 use GuzzleHttp\RequestOptions;
 use GuzzleHttp\Client as GuzzleCLient;
+use Onetoweb\Snelstart\Endpoint\Endpoints;
 use Onetoweb\Snelstart\Token;
-use Onetoweb\Snelstart\Endpoint;
 use DateTime;
 
 /**
  * Snelstart Api Client.
  */
+#[\AllowDynamicProperties]
 class Client
 {
     /**
@@ -83,36 +84,9 @@ class Client
      */
     private function loadEndpoints(): void
     {
-        $this->actionprice = new Endpoint\Actionprice($this);
-        $this->article = new Endpoint\Article($this);
-        $this->itemDepartment = new Endpoint\ItemDepartment($this);
-        $this->authorization = new Endpoint\Authorization($this);
-        $this->bankStatementFile = new Endpoint\BankStatementFile($this);
-        $this->bankEntry = new Endpoint\BankEntry($this);
-        $this->vatDeclaration = new Endpoint\VatDeclaration($this);
-        $this->vatRate = new Endpoint\VatRate($this);
-        $this->companyInfo = new Endpoint\CompanyInfo($this);
-        $this->journal = new Endpoint\Journal($this);
-        $this->document = new Endpoint\Document($this);
-        $this->echoTest = new Endpoint\EchoTest($this);
-        $this->generalLedger = new Endpoint\GeneralLedger($this);
-        $this->generalLedgerMutation = new Endpoint\GeneralLedgerMutation($this);
-        $this->purchaseEntry = new Endpoint\PurchaseEntry($this);
-        $this->purchaseInvoice = new Endpoint\PurchaseInvoice($this);
-        $this->cashEntry = new Endpoint\CashEntry($this);
-        $this->costCentre = new Endpoint\CostCentre($this);
-        $this->country = new Endpoint\Country($this);
-        $this->journalEntry = new Endpoint\JournalEntry($this);
-        $this->quotation = new Endpoint\Quotation($this);
-        $this->priceAgreement = new Endpoint\PriceAgreement($this);
-        $this->report = new Endpoint\Report($this);
-        $this->relation = new Endpoint\Relation($this);
-        $this->vatRateDefinition = new Endpoint\VatRateDefinition($this);
-        $this->vatRateIntl = new Endpoint\VatRateIntl($this);
-        $this->saleEntry = new Endpoint\SaleEntry($this);
-        $this->saleInvoice = new Endpoint\SaleInvoice($this);
-        $this->saleOrder = new Endpoint\SaleOrder($this);
-        $this->saleOrderTemplate = new Endpoint\SaleOrderTemplate($this);
+        foreach (Endpoints::list() as $name => $class) {
+            $this->{$name} = new $class($this);
+        }
     }
     
     /**

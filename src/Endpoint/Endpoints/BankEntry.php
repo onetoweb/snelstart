@@ -1,11 +1,13 @@
 <?php
 
-namespace Onetoweb\Snelstart\Endpoint;
+namespace Onetoweb\Snelstart\Endpoint\Endpoints;
+
+use Onetoweb\Snelstart\Endpoint\AbstractEndpoint;
 
 /**
- * SaleOrder Endpoint.
+ * BankEntry Endpoint.
  */
-class SaleOrder extends AbstractEndpoint
+class BankEntry extends AbstractEndpoint
 {
     /**
      * @param int $skip = 0
@@ -16,7 +18,7 @@ class SaleOrder extends AbstractEndpoint
      */
     public function list(int $skip = 0, int $top = 50, string $filter = null): array
     {
-        return $this->client->get('verkooporders', [
+        return $this->client->get('bankboekingen', [
             '$skip' => $skip,
             '$top' => $top,
             '$filter' => $filter
@@ -30,7 +32,7 @@ class SaleOrder extends AbstractEndpoint
      */
     public function get(string $id): array
     {
-        return $this->client->get("verkooporders/$id");
+        return $this->client->get("bankboekingen/$id");
     }
     
     /**
@@ -40,9 +42,8 @@ class SaleOrder extends AbstractEndpoint
      */
     public function create(array $data): array
     {
-        return $this->client->post('verkooporders', $data);
+        return $this->client->post('bankboekingen', $data);
     }
-    
     
     /**
      * @param string $id
@@ -52,7 +53,9 @@ class SaleOrder extends AbstractEndpoint
      */
     public function update(string $id, array $data): array
     {
-        return $this->client->put("verkooporders/$id", $data);
+        $data['id'] = $id;
+        
+        return $this->client->put("bankboekingen/$id", $data);
     }
     
     /**
@@ -62,17 +65,6 @@ class SaleOrder extends AbstractEndpoint
      */
     public function delete(string $id): bool
     {
-        return $this->client->delete("verkooporders/$id");
-    }
-    
-    /**
-     * @param string $id
-     * @param array $data
-     * 
-     * @return array
-     */
-    public function updateProcessStatus(string $id, array $data): array
-    {
-        return $this->client->put("verkooporders/$id/ProcesStatus", $data);
+        return $this->client->delete("bankboekingen/$id");
     }
 }

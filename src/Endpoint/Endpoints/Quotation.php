@@ -1,6 +1,8 @@
 <?php
 
-namespace Onetoweb\Snelstart\Endpoint;
+namespace Onetoweb\Snelstart\Endpoint\Endpoints;
+
+use Onetoweb\Snelstart\Endpoint\AbstractEndpoint;
 
 /**
  * Quotation Endpoint.

@@ -1,22 +1,24 @@
 <?php
 
-namespace Onetoweb\Snelstart\Endpoint;
+namespace Onetoweb\Snelstart\Endpoint\Endpoints;
+
+use Onetoweb\Snelstart\Endpoint\AbstractEndpoint;
 
 /**
- * BankEntry Endpoint.
+ * CashEntry Endpoint.
  */
-class BankEntry extends AbstractEndpoint
+class CashEntry extends AbstractEndpoint
 {
     /**
      * @param int $skip = 0
      * @param int $top = 50
      * @param string $filter = null
-     * 
+     *
      * @return array
      */
     public function list(int $skip = 0, int $top = 50, string $filter = null): array
     {
-        return $this->client->get('bankboekingen', [
+        return $this->client->get('kasboekingen', [
             '$skip' => $skip,
             '$top' => $top,
             '$filter' => $filter
@@ -30,7 +32,7 @@ class BankEntry extends AbstractEndpoint
      */
     public function get(string $id): array
     {
-        return $this->client->get("bankboekingen/$id");
+        return $this->client->get("kasboekingen/$id");
     }
     
     /**
@@ -40,7 +42,7 @@ class BankEntry extends AbstractEndpoint
      */
     public function create(array $data): array
     {
-        return $this->client->post('bankboekingen', $data);
+        return $this->client->post('kasboekingen', $data);
     }
     
     /**
@@ -53,8 +55,9 @@ class BankEntry extends AbstractEndpoint
     {
         $data['id'] = $id;
         
-        return $this->client->put("bankboekingen/$id", $data);
+        return $this->client->put("kasboekingen/$id", $data);
     }
+    
     
     /**
      * @param string $id
@@ -63,6 +66,6 @@ class BankEntry extends AbstractEndpoint
      */
     public function delete(string $id): bool
     {
-        return $this->client->delete("bankboekingen/$id");
+        return $this->client->delete("kasboekingen/$id");
     }
 }

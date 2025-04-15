@@ -1,22 +1,24 @@
 <?php
 
-namespace Onetoweb\Snelstart\Endpoint;
+namespace Onetoweb\Snelstart\Endpoint\Endpoints;
+
+use Onetoweb\Snelstart\Endpoint\AbstractEndpoint;
 
 /**
- * CashEntry Endpoint.
+ * SaleOrder Endpoint.
  */
-class CashEntry extends AbstractEndpoint
+class SaleOrder extends AbstractEndpoint
 {
     /**
      * @param int $skip = 0
      * @param int $top = 50
      * @param string $filter = null
-     *
+     * 
      * @return array
      */
     public function list(int $skip = 0, int $top = 50, string $filter = null): array
     {
-        return $this->client->get('kasboekingen', [
+        return $this->client->get('verkooporders', [
             '$skip' => $skip,
             '$top' => $top,
             '$filter' => $filter
@@ -30,7 +32,7 @@ class CashEntry extends AbstractEndpoint
      */
     public function get(string $id): array
     {
-        return $this->client->get("kasboekingen/$id");
+        return $this->client->get("verkooporders/$id");
     }
     
     /**
@@ -40,8 +42,9 @@ class CashEntry extends AbstractEndpoint
      */
     public function create(array $data): array
     {
-        return $this->client->post('kasboekingen', $data);
+        return $this->client->post('verkooporders', $data);
     }
+    
     
     /**
      * @param string $id
@@ -51,11 +54,8 @@ class CashEntry extends AbstractEndpoint
      */
     public function update(string $id, array $data): array
     {
-        $data['id'] = $id;
-        
-        return $this->client->put("kasboekingen/$id", $data);
+        return $this->client->put("verkooporders/$id", $data);
     }
-    
     
     /**
      * @param string $id
@@ -64,6 +64,17 @@ class CashEntry extends AbstractEndpoint
      */
     public function delete(string $id): bool
     {
-        return $this->client->delete("kasboekingen/$id");
+        return $this->client->delete("verkooporders/$id");
+    }
+    
+    /**
+     * @param string $id
+     * @param array $data
+     * 
+     * @return array
+     */
+    public function updateProcessStatus(string $id, array $data): array
+    {
+        return $this->client->put("verkooporders/$id/ProcesStatus", $data);
     }
 }
