@@ -19,7 +19,7 @@ Setup
     // setup client
     $client = new Client($clientKey, $subscriptionKey);
     
-    // set update token callback
+    // (optional) set update token callback
     $client->setUpdateTokenCallback(function (Token $token) {
         
         // store token

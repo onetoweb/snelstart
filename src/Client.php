@@ -185,7 +185,7 @@ class Client
     {
         // build options
         $options = [
-            RequestOptions::HTTP_ERRORS => false,
+            RequestOptions::HTTP_ERRORS => true,
             RequestOptions::FORM_PARAMS => [
                 'grant_type' => 'clientkey',
                 'clientkey' => $this->clientKey,
