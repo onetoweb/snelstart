@@ -22,8 +22,8 @@ List sale invoices
     $result = $client->saleInvoice->list($skip, $top, $filter);
 
 
-List sale invoices (filter last 3 monts)
-````````````````````````````````````````
+List sale invoices (filter last 3 months)
+`````````````````````````````````````````
 
 .. code-block:: php
     
