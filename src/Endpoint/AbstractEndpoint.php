@@ -10,15 +10,11 @@ use Onetoweb\Snelstart\Client;
 abstract class AbstractEndpoint implements EndpointInterface
 {
     /**
-     * @var Client
-     */
-    protected $client;
-    
-    /**
      * @param Client $client
      */
-    public function __construct(Client $client)
-    {
+    public function __construct(
+        protected Client $client
+    ) {
         $this->client = $client;
     }
 }

@@ -15,3 +15,10 @@
 ## [1.0.3] - 2025-04-15
 
  - Throw exception if request access token request fails
+
+## [2.0.0] - 2026-09-24
+
+ - Require php 8.1 or higher
+ - Drop support for guzzle 6
+ - Add support for guzzle 8
+ - Add SensitiveParameter attributes

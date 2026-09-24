@@ -6,7 +6,9 @@ use GuzzleHttp\RequestOptions;
 use GuzzleHttp\Client as GuzzleCLient;
 use Onetoweb\Snelstart\Endpoint\Endpoints;
 use Onetoweb\Snelstart\Token;
+use Onetoweb\Snelstart\Config\{Method, Url};
 use DateTime;
+use Closure;
 
 /**
  * Snelstart Api Client.
@@ -15,66 +17,40 @@ use DateTime;
 class Client
 {
     /**
-     * Base Urls.
-     */
-    public const BASE_URL = 'https://b2bapi.snelstart.nl';
-    public const AUTH_URL = 'https://auth.snelstart.nl/b2b/token';
-    
-    /**
      * Version
      */
     public const VERSION = 2;
     
     /**
-     * Methods.
+     * @var Token|null
      */
-    public const METHOD_GET = 'GET';
-    public const METHOD_POST = 'POST';
-    public const METHOD_PUT = 'PUT';
-    public const METHOD_DELETE = 'DELETE';
-    public const METHOD_HEAD = 'HEAD';
+    private ?Token $token = null;
     
     /**
-     * @var string
+     * @var Closure|null
      */
-    private $clientKey;
-    
-    /**
-     * @var string
-     */
-    private $subscriptionKey;
-    
-    /**
-     * @var string
-     */
-    private $version;
-    
-    /**
-     * @var Token
-     */
-    private $token;
-    
-    /**
-     * @var callable
-     */
-    private $updateTokenCallback;
+    private ?Closure $updateTokenCallback = null;
     
     /**
      * @var int
      */
-    private $lastStatusCode;
+    private ?int $lastStatusCode = null;
     
     /**
      * @param string $clientKey
      * @param string $subscriptionKey
      * @param int $version = self::VERSION
      */
-    public function __construct(string $clientKey, string $subscriptionKey, int $version = self::VERSION)
-    {
-        $this->clientKey = $clientKey;
-        $this->subscriptionKey = $subscriptionKey;
-        $this->version = $version;
+    public function __construct(
         
+        #[\SensitiveParameter]
+        private string $clientKey,
+        
+        #[\SensitiveParameter]
+        private string $subscriptionKey,
+        
+        private int $version = self::VERSION
+    ) {
         // load endpoints
         $this->loadEndpoints();
     }
@@ -117,7 +93,7 @@ class Client
      */
     public function get(string $endpoint, array $query = []): ?array
     {
-        return $this->request(self::METHOD_GET, $endpoint, [], $query);
+        return $this->request(Method::GET, $endpoint, [], $query);
     }
     
     /**
@@ -128,7 +104,7 @@ class Client
      */
     public function post(string $endpoint, array $data): ?array
     {
-        return $this->request(self::METHOD_POST, $endpoint, $data);
+        return $this->request(Method::POST, $endpoint, $data);
     }
     
     /**
@@ -139,7 +115,7 @@ class Client
      */
     public function put(string $endpoint, array $data): ?array
     {
-        return $this->request(self::METHOD_PUT, $endpoint, $data);
+        return $this->request(Method::PUT, $endpoint, $data);
     }
     
     /**
@@ -149,7 +125,7 @@ class Client
      */
     public function delete(string $endpoint): bool
     {
-        $this->request(self::METHOD_DELETE, $endpoint);
+        $this->request(Method::DELETE, $endpoint);
         
         return $this->lastStatusCode === 200;
     }
@@ -161,7 +137,7 @@ class Client
      */
     public function head(string $endpoint): array
     {
-        return $this->request(self::METHOD_HEAD, $endpoint);
+        return $this->request(Method::HEAD, $endpoint);
     }
     
     /**
@@ -172,7 +148,7 @@ class Client
     public function getUrl(string $endpoint): string
     {
         return implode('/', [
-            self::BASE_URL,
+            Url::BASE->value,
             'v'.$this->version,
             $endpoint
         ]);
@@ -196,7 +172,7 @@ class Client
         ];
         
         // make request
-        $response = (new GuzzleCLient())->request(self::METHOD_POST, self::AUTH_URL, $options);
+        $response = (new GuzzleCLient())->post(Url::AUTH->value, $options);
         
         // get contents
         $contents = $response->getBody()->getContents();
@@ -223,14 +199,14 @@ class Client
     }
     
     /**
-     * @param string $method
+     * @param Method $method
      * @param string $endpoint
      * @param array $data = []
      * @param array $query = []
      * 
      * @return array|null
      */
-    public function request(string $method, string $endpoint, array $data = [], array $query = []): ?array
+    public function request(Method $method, string $endpoint, array $data = [], array $query = []): ?array
     {
         // check token
         if ($this->token === null or $this->token->isExpired()) {
@@ -254,7 +230,7 @@ class Client
         ];
         
         // make request
-        $response = (new GuzzleCLient())->request($method, $this->getUrl($endpoint), $options);
+        $response = (new GuzzleCLient())->request($method->value, $this->getUrl($endpoint), $options);
         
         // store last status code
         $this->lastStatusCode = $response->getStatusCode();
